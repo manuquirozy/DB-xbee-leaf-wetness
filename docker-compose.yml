@@ -1,0 +1,36 @@
+version: '3.6'
+
+services:
+  # nestjs-template:
+  #   image: node:dubnium
+  #   working_dir: /usr/src/app
+  #   container_name: nestjs-template
+  #   ports:
+  #     - 3000:3000
+  #   volumes:
+  #     - '.:/usr/src/app'
+  #   env_file:
+  #     - .env
+  #   environment:
+  #     - NODE_ENV=docker-compose
+  #   tty: true
+  #   networks:
+  #     - nestjs-template
+  #   entrypoint: ['npm', 'start']
+
+  postgres-service:
+    image: 'postgres:12.3-alpine'
+    container_name: nestjs-template-db
+    ports:
+      - 5432:5432
+    environment:
+      - POSTGRES_USER=test
+      - POSTGRES_PASSWORD=test
+      - POSTGRES_DB=nestjs-template-db
+    stop_signal: SIGKILL
+    networks:
+      - nestjs-template
+
+networks:
+  nestjs-template:
+    driver: bridge
